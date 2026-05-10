@@ -85,7 +85,7 @@ def simpson_vector(func, a: float, b: float, n: int, *args):
 
     return area
 
-def central_difference(func, x: float, dx=1e-5, *args):
+def central_difference(func, x: float, *args, dx=1.602e-24):
     """
     Calculates the central difference approximation for numerical differentiation
     :param func: Takes in a function to be differentiated
@@ -101,7 +101,7 @@ def central_difference(func, x: float, dx=1e-5, *args):
     return (f_forwards - f_backwards)/(2*dx)
 
 
-def newton_raphson(func, x: float, *args, tol=1e-6, max_iter=100):
+def newton_raphson(func, x: float, *args, tol=1.602e-25, max_iter=1000):
     """
     Uses the Newton Raphson Method to find the roots of a function given an initial approximation
     :param func: Takes in a function to approximate roots
@@ -116,10 +116,10 @@ def newton_raphson(func, x: float, *args, tol=1e-6, max_iter=100):
         f_val = func(x, *args)
         f_prime = central_difference(func, x, *args)
 
-        if abs(f_prime) < 1e-15:
+        if abs(f_prime) < 1e-30:
             print("Numerical derivative it too small. Divergence likely.")
             return None
-        h = f_val - f_prime
+        h = f_val / f_prime
         x = x - h
 
         if abs(h) < tol:
@@ -128,10 +128,40 @@ def newton_raphson(func, x: float, *args, tol=1e-6, max_iter=100):
     return x
 
 
+def bisection_method(func, lower_bound: float, upper_bound: float, *args, tol=1.602e-25):
+    """
+    Uses the bisection method to find the roots of a function given an upper and lower bound
+    :param func: Takes in a function to approximate roots
+    :param lower_bound: lower bound of approximation
+    :param upper_bound: upper bound of approximation
+    :param args: any additional variable values
+    :param tol: Tolerance
+    :return: approximated root
+    """
+    a = lower_bound
+    b = upper_bound
 
+    if  (func(a, *args) * func(b, *args)) > 0:
+        print("Error: Root is not bracketed between the bounds.")
+        return None
+    i=0
+    while (b-a)/2 > tol:
+        c = (a + b) / 2.0
+        f_c = func(c, *args)
 
+        if f_c == 0:
+           #print(f'Final result:{c}')
+           return c
 
+        if (func(a, *args) * func(c, *args)) < 0:
+            b = c
+            #print(f'upper bound:{b}\niter:{i}')
+        else:
+            a = c
+            #print(f'lower bound:{a}\niter:{i}')
+        i += 1
 
+    return (a + b) / 2.0
 
 
 

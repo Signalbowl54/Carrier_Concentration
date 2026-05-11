@@ -1,5 +1,7 @@
 import numpy as np
 from materials import k_B, h_bar, q, m_0
+
+
 def trap_integral(func, a: float, b: float, n: int, *args):
     """
     Calculates the numerical integral using the trapezoidal rule

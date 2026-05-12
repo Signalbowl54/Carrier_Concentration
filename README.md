@@ -5,7 +5,7 @@ The purpose of this application was to help me learn about Semiconductor Physics
 
 ## How does this Work?
 This program takes a specific material as described in materials.py and outputs the properties from the effects of heavy doping. It does this by the following process:
-1. A .csv file containing the Temperature (K), log$_{10}$N$_D$ and Fermi Level data is generated from a custom-built Bisection root finder found in physics_tools.py.
+1. A .csv file containing the Temperature (K), $log_{10}N_D$ and Fermi Level data is generated from a custom-built Bisection root finder found in physics_tools.py.
 2. A Neural Net is then trained on this data producing a .pth file for use later on.
 3. inference.py takes the trained model and uses it to predict the Fermi Level at a specific temperature (In this case 300K) and at a specific doping concentration ($N_D$). Also, outputting a graph displaying the data being outputted by the model (ai_brain_diagnostic.png)
 4. simulate_transport.py takes in the same data as inference.py but outputs the electron transport, conductivity, and resistivity of the material.

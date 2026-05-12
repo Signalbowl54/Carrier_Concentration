@@ -28,7 +28,7 @@ class Net(nn.Module):
 
 # generate data
 
-def generate_training_data(filename="Silicon_fermi_dataset.csv", grid_size=100):
+def generate_training_data(filename="silicon_fermi_dataset.csv", grid_size=100):
     if os.path.exists(filename):
         print(f"[*] Dataset '{filename}' already exists. Skipping generation.")
         return filename
@@ -122,7 +122,7 @@ def train_model(data_filename, epochs=2000, lr=0.005):
         'X_max': X_max
     }, "Silicon_fermi_surrogate.pth")
 
-    print("[*] Training Complete! Model and scalers saved to 'Silicon_fermi_surrogate.pth'")
+    print("[*] Training Complete! Model and scalers saved to 'silicon_fermi_surrogate.pth'")
     return model, X_min, X_max
 
 # Execute

@@ -9,7 +9,7 @@ from pipeline import Net
 
 
 class SiliconPhysicsEngine:
-    def __init__(self, model_path="Silicon_fermi_surrogate.pth"):
+    def __init__(self, model_path="silicon_fermi_surrogate.pth"):
         print(f"[*] Booting AI Surrogate from {model_path}...")
 
         # 1. Load the dictionary containing our weights and scalers

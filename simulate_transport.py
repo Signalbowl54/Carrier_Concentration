@@ -1,8 +1,8 @@
 import numpy as np
 import physics_tools as pt
-from materials import Silicon, k_B, q, GalliumArsenide
+from materials import Silicon, k_B, q, GalliumArsenide, SiGe
 from inference import SiliconPhysicsEngine
-
+material = SiGe(0.375)
 def main():
     print("=== TRANSPORT & CONDUCTIVITY SIMULATOR ===")
 

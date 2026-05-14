@@ -5,9 +5,9 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import os
 import physics_tools as pt
-from materials import Silicon, q, k_B, m_0, GalliumArsenide
+from materials import Silicon, q, k_B, m_0, GalliumArsenide, SiGe
 
-
+material = SiGe(.375)
 # Create the Neural Network
 
 class Net(nn.Module):

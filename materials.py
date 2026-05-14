@@ -101,10 +101,65 @@ GalliumArsenide = Semiconductor(
     }
 )
 
+Germanium = Semiconductor(
+    name='Germanium',
+    Eg_0_ev=0.742,
+    alpha=4.77e-4,
+    beta=235,
+    me_eff_dos=0.36,
+    mh_eff_dos=0.81,
+    me_eff_cc=0.12,
+    mh_eff_cc=0.34,
+    arora_e={
+        'mu_min': 700, 'mu_max': 3900, 'N_ref': 1.75e17, 'alpha_m': 0.68,
+        'ex_min': -0.57, 'ex_max': -2.33, 'ex_N': 2.4, 'ex_a': -0.146
+    },
+    arora_h={
+        'mu_min': 450.0, 'mu_max': 1900, 'N_ref': 8.25e17, 'alpha_m': 0.45,
+        'ex_min': -0.57, 'ex_max': -2.33, 'ex_N': 2.4, 'ex_a': -0.146
+    }
+)
+# --- Alloys ---
+class SiGe(Semiconductor):
+    def __init__(self, x):
+        self.x = x
 
+        self.alpha = (1-x)*4.73e-4 + x*4.77e-4
+        self.beta = (1-x)*636 + x*235
 
+        # Get Eg_0_ev for Ge-like (x>=.85) or Si-like (x<.85)
+        if x < 0.85:
+            self.Eg_0_ev = 1.17 - 0.43*x + 0.206*x**2
+        else:
+            self.Eg_0_ev = 0.945 - 0.204*x
 
+        if x < 0.85:
+            self.me_eff_dos = 1.06
+        else:
+            self.me_eff_dos = 1.55
 
+        if x < 0.85:
+            self.me_eff_cc = 0.26
+        else:
+            self.me_eff_cc = 0.12
+
+        self.mh_eff_dos = (1-x) * 0.81 + x * 0.34
+        self.mh_eff_cc = (1-x) * 0.37 + x * 0.21
+
+    @property
+    def arora_e(self):
+            # Linear interpolation of the Silicon and Germanium endpoints
+        return {
+            key: (1 - self.x) * Silicon.arora_e[key] + self.x * Germanium.arora_e[key]
+            for key in Silicon.arora_e
+        }
+
+    @property
+    def arora_h(self):
+        return {
+            key: (1 - self.x) * Silicon.arora_h[key] + self.x * Germanium.arora_h[key]
+            for key in Silicon.arora_h
+        }
 
 
 

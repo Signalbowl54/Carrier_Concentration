@@ -226,10 +226,10 @@ def calc_arora_mobility(T: float, N_total_cm3: float, params: dict) -> float:
     Universal Arora/Caughey-Thomas empirical mobility solver.
     Accepts Temperature, Total Doping (cm^-3), and a parameter dictionary.
     Returns Mobility in SI units (m^2 / V*s).
-    :param T:
-    :param N_total_cm3:
-    :param params:
-    :return:
+    :param T: Temperature in Kelvin (K)
+    :param N_total_cm3: Total Doping (cm^-3)
+    :param params: additional parameters
+    :return: Mobility in SI units (m^2 / V*s)
     """
     T_norm = T / 300.0
 
